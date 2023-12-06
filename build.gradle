@@ -22,16 +22,32 @@ repositories {
 }
 
 dependencies {
+    // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // SECURITY
     implementation 'org.springframework.boot:spring-boot-starter-security'
+
+    // THYMELEAF
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+
+    // WEB
     implementation 'org.springframework.boot:spring-boot-starter-web'
+
+
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
+    implementation 'org.jetbrains:annotations:24.0.0'
+
+    // LOMBOK
     compileOnly 'org.projectlombok:lombok'
-    developmentOnly 'org.springframework.boot:spring-boot-devtools'
     annotationProcessor 'org.projectlombok:lombok'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
+
+    // JAKARTA
+    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
 }
 
 tasks.named('test') {
