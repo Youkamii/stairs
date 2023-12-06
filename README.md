@@ -16,7 +16,7 @@ last_updated : 2023 12 06
 <img src="https://drive.google.com/uc?export=view&id=10ei4J7Y6b0W8Ym77ljgGXGEllEKOsUy6">
 
 #### 설명
-**[velog](https://velog.io/)** 와 **[thread](https://www.threads.net/)**를 참고하여 임시 SNS Wire Frame을 구상
+**[velog](https://velog.io/)** 와 **[thread](https://www.threads.net/)** 를 참고하여 임시 SNS Wire Frame을 구상
 
 ## ERD 🧶
 <img src="https://drive.google.com/uc?export=view&id=1k1xHE6I3BdCzelfOoriUk5Ppr9WiA1lR">
