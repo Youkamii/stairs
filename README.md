@@ -23,6 +23,28 @@ last_updated : 2023 12 06
 
 ## API 🧩
 
+#### 일반 사용자
+<img src="https://drive.google.com/uc?export=view&id=1N9UVsswg6gQeZvib7GZRyTV1mI4yg7wv">
+
+#### 관리자
+<img src="https://drive.google.com/uc?export=view&id=1SzWmBa2mzgznkukerl-OVqLA_RtAlFkI">
+
+#### 포스트
+<img src="https://drive.google.com/uc?export=view&id=1PA3vaNeO5iYxZspbef9-wZBzlllKZySc">
+
+#### 포스트 좋아요
+<img src="https://drive.google.com/uc?export=view&id=1eED-jTGaVrBjmu4ExrnpfdA37CrMyyKS">
+
+#### 댓글
+<img src="https://drive.google.com/uc?export=view&id=1QP95m8egVn2egTdz8nnJLapMxRFz0RWW">
+
+#### 댓글 좋아요
+<img src="https://drive.google.com/uc?export=view&id=1bOvRP49b9ydr5E0REkm4fjwNVeF99g6p">
+
+#### 팔로워
+<img src="https://drive.google.com/uc?export=view&id=1ufNQiePsnWfqMkZIaGHoaM4DO_3gZnOJ">
+
+
 ## 기능 소개
 
 ## TroubleShooting 😣
