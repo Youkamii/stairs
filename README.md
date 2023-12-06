@@ -1,4 +1,6 @@
-#  Project stairs 🪜
+#  Project stairs 🪜 
+
+last_updated : 2023 12 06
 
 ## 프로젝트 개요 🔍
 
