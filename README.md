@@ -1,8 +1,8 @@
-#  Project stairs 🪜 
+#  Project <span style="color:blueviolet">stairs</span> 🪜
 
 ### 목차
 
-- <span style="color:red"> [프로젝트 개요](https://github.com/Youkamii/stairs/blob/main/README.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%9A%94-) </span>
+- [프로젝트 개요](https://github.com/Youkamii/stairs/blob/main/README.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%9A%94-)
 - [Wire Frame](https://github.com/Youkamii/stairs/blob/main/README.md#wire-frame-%EF%B8%8F)
 - [ERD](https://github.com/Youkamii/stairs/blob/main/README.md#erd-)
 - [API](https://github.com/Youkamii/stairs/blob/main/README.md#api-)
