@@ -1,4 +1,4 @@
-#  Project <span style="color:blueviolet">stairs</span> 🪜
+#  Project stairs 🪜
 
 ### 목차
 
