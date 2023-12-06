@@ -1,5 +1,14 @@
 #  Project stairs 🪜 
 
+### 목차
+
+- <span style="color:red"> [프로젝트 개요](https://github.com/Youkamii/stairs/blob/main/README.md#%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%EA%B0%9C%EC%9A%94-) </span>
+- [Wire Frame](https://github.com/Youkamii/stairs/blob/main/README.md#wire-frame-%EF%B8%8F)
+- [ERD](https://github.com/Youkamii/stairs/blob/main/README.md#erd-)
+- [API](https://github.com/Youkamii/stairs/blob/main/README.md#api-)
+- [기능소개](https://github.com/Youkamii/stairs/blob/main/README.md#%EA%B8%B0%EB%8A%A5-%EC%86%8C%EA%B0%9C)
+- [Trouble Shooting](https://github.com/Youkamii/stairs/blob/main/README.md#troubleshooting-)
+
 last_updated : 2023 12 06
 
 ## 프로젝트 개요 🔍
