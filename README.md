@@ -25,32 +25,33 @@ last_updated : 2023 12 06
 <img src="https://drive.google.com/uc?export=view&id=10ei4J7Y6b0W8Ym77ljgGXGEllEKOsUy6">
 
 #### 설명
-**[velog](https://velog.io/)** 와 **[thread](https://www.threads.net/)** 를 참고하여 임시 SNS Wire Frame을 구상
+
+ - **[velog](https://velog.io/)** 와 **[thread](https://www.threads.net/)** 를 참고하여 임시 SNS Wire Frame을 구상
 
 ## ERD 🧶
 <img src="https://drive.google.com/uc?export=view&id=1k1xHE6I3BdCzelfOoriUk5Ppr9WiA1lR">
 
 ## API 🧩
 
-#### 일반 사용자
+#### - 일반 사용자
 <img src="https://drive.google.com/uc?export=view&id=1N9UVsswg6gQeZvib7GZRyTV1mI4yg7wv">
 
-#### 관리자
+#### - 관리자
 <img src="https://drive.google.com/uc?export=view&id=1SzWmBa2mzgznkukerl-OVqLA_RtAlFkI">
 
-#### 포스트
+#### - 포스트
 <img src="https://drive.google.com/uc?export=view&id=1PA3vaNeO5iYxZspbef9-wZBzlllKZySc">
 
-#### 포스트 좋아요
+#### - 포스트 좋아요
 <img src="https://drive.google.com/uc?export=view&id=1eED-jTGaVrBjmu4ExrnpfdA37CrMyyKS">
 
-#### 댓글
+#### - 댓글
 <img src="https://drive.google.com/uc?export=view&id=1QP95m8egVn2egTdz8nnJLapMxRFz0RWW">
 
-#### 댓글 좋아요
+#### - 댓글 좋아요
 <img src="https://drive.google.com/uc?export=view&id=1bOvRP49b9ydr5E0REkm4fjwNVeF99g6p">
 
-#### 팔로워
+#### - 팔로워
 <img src="https://drive.google.com/uc?export=view&id=1ufNQiePsnWfqMkZIaGHoaM4DO_3gZnOJ">
 
 
