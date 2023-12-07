@@ -48,6 +48,9 @@ dependencies {
 
     // JAKARTA
     implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+
+    // MySQL
+    runtimeOnly 'com.mysql:mysql-connector-j:8.2.0'
 }
 
 tasks.named('test') {
