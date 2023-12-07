@@ -40,4 +40,19 @@ public class User {
 		this.role = UserRoleEnum.USER;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
 }
