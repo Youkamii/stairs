@@ -7,4 +7,7 @@ import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+    List<Post> findAllByOrderByCreatedDateTimeDesc();
+
+    List<Post> findByTitleOrderByCreatedDateTimeDesc(String 제목);
 }
