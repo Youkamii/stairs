@@ -14,13 +14,14 @@ public class User {
 	@Column(name = "user_id")
 	private Long id;
 
-	@Column
+	@Column(nullable = false)
 	private String username;
 
-	@Column
+	@Column(nullable = false)
 	private String password;
 
-	@Column
+	@Column(nullable = false)
+	@Enumerated(value = EnumType.STRING)
 	private UserRoleEnum role;
 
 	@Column
@@ -29,7 +30,7 @@ public class User {
 	@Column
 	private String introduction;
 
-	@Column
+	@Column(nullable = false)
 	private String email;
 
 	public User(String username, String password, String email) {
@@ -37,11 +38,7 @@ public class User {
 		this.nickname = username;
 		this.password = password;
 		this.email = email;
-		this.role = UserRoleEnum.USER;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
+		this.role = UserRoleEnum.ROLE_USER;
 	}
 
 	public void setNickname(String nickname) {
@@ -54,5 +51,9 @@ public class User {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public void changePassword(String newPassword) {
+		this.password = newPassword;
 	}
 }

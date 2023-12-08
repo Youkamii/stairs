@@ -28,20 +28,21 @@ public class UserController {
 	}
 
 	// 비밀번호 변경
-	@PutMapping("/password")
+	@PatchMapping("/password")
 	public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordRequestDto requestDto,
 												 @AuthenticationPrincipal UserDetailsimplements userDetails) {
 
-		userService.changePassword(requestDto, userDetails);
+		userService.changePassword(requestDto, userDetails.getUser());
 		return new ResponseEntity<>("비밀번호가 정상적으로 변경되었습니다.", HttpStatus.OK);
 	}
 
+
 	// 프로필 수정
 	@PatchMapping("/{userId}/profile")
-	public ResponseEntity<String> modifyProfile(@PathVariable Long id,
+	public ResponseEntity<String> modifyProfile(@PathVariable Long userId,
 																  @Valid @RequestBody ProfileModifyRequestDto requestDto,
 																  @AuthenticationPrincipal UserDetailsimplements userDetails) {
-		userService.modifyProfile(id, requestDto, userDetails);
+		userService.modifyProfile(userId, requestDto, userDetails);
 		return new ResponseEntity<>("프로필이 정상적으로 수정되었습니다.", HttpStatus.OK);
 	}
 

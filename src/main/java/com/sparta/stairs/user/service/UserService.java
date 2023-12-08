@@ -1,21 +1,23 @@
 package com.sparta.stairs.user.service;
 
 import com.sparta.stairs.global.exception.CustomException;
-import com.sparta.stairs.global.exception.user.ChangePasswordEqualException;
+import com.sparta.stairs.global.exception.user.NotFoundUserException;
+import com.sparta.stairs.security.UserDetailsimplements;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
 import com.sparta.stairs.user.dto.ProfileResponseDto;
 import com.sparta.stairs.user.dto.SignupRequestDto;
 import com.sparta.stairs.user.entity.User;
+import com.sparta.stairs.user.entity.UserPasswordHistory;
+import com.sparta.stairs.user.repository.UserPasswordHistoryRepository;
 import com.sparta.stairs.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import com.sparta.stairs.global.exception.user.NotFoundUserException;
-import com.sparta.stairs.security.UserDetailsimplements;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,38 +25,49 @@ import java.util.Optional;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final UserPasswordHistoryRepository userPasswordHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
 
 	public void signup(SignupRequestDto requestDto) {
 		//check duplication
 		String username = requestDto.getUsername();
-		userRepository.findByUsername(username)
-				.orElseThrow(() -> new CustomException(HttpStatus.CONFLICT, "중복된 유저 아이디입니다."));
+		Optional<User> findUser = userRepository.findByUsername(username);
 
+		if(findUser.isPresent()) throw new CustomException(HttpStatus.CONFLICT, "중복된 유저 아이디입니다.");
 
 		String password = passwordEncoder.encode(requestDto.getPassword());
 		User user = new User(username, password, requestDto.getEmail());
 		userRepository.save(user);
+
+		UserPasswordHistory userPasswordHistory = new UserPasswordHistory(user, password);
+		userPasswordHistoryRepository.save(userPasswordHistory);
 	}
 
+	@Transactional
+	public void changePassword(ChangePasswordRequestDto requestDto, User user) {
+		//0. 유저 비교
+		User findUser = userRepository.findById(user.getId())
+				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
 
-	public void changePassword(ChangePasswordRequestDto requestDto, UserDetailsimplements userDetails) {
-		// 예외
-		User user = userRepository.findById(userDetails.getUser().getId())
-				.orElseThrow(NotFoundUserException::new);
-		String newPassword = passwordEncoder.encode(requestDto.getNewPassword());
+		//1. 히스토리와 비교
+		List<UserPasswordHistory> passwords = userPasswordHistoryRepository.findTop3ByUserOrderByCreatedAtDesc(user);
 
-		// 한번 더 받는 과정
-
-		// 3번 안에 사용한 비밀번호 사용 못하게
-
-		// 기존 == 새 번호 같을 경우
-		if (requestDto.getCurrentPassword().equals(requestDto.getNewPassword())) {
-			throw new ChangePasswordEqualException();
+		for (UserPasswordHistory password : passwords) {
+			System.out.println(password);
 		}
 
-		//
-		user.setPassword(newPassword);
+		String newPassword = requestDto.getNewPassword();
+		passwords.stream().map(UserPasswordHistory::getBeforePassword)
+				.forEach(pwd -> {if (passwordEncoder.matches(newPassword, pwd)) {
+						throw new CustomException(HttpStatus.BAD_REQUEST, "최근 3번 안에 사용한 비밀번호는 사용할 수 없습니다.");}});
+
+//		2. 히스토리 저장, 비밀번호 변경
+		String encodePassword = passwordEncoder.encode(newPassword);
+
+		UserPasswordHistory userPasswordHistory = new UserPasswordHistory(findUser, encodePassword);
+		userPasswordHistoryRepository.save(userPasswordHistory);
+
+		findUser.changePassword(encodePassword);
 	}
 
 	public void modifyProfile(Long userId, ProfileModifyRequestDto requestDto, UserDetailsimplements userDetails) {
