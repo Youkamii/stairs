@@ -27,7 +27,6 @@ public class Post extends Time {
     @Column(nullable = false)
     private String contents;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
