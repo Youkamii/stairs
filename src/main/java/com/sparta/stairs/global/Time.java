@@ -12,15 +12,13 @@ import java.time.ZonedDateTime;
 
 @Getter
 @EntityListeners(AuditingEntityListener.class)
+@MappedSuperclass
 public abstract class Time {
 
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIME)
     protected ZonedDateTime createdDateTime = ZonedDateTime.now();
 
-
-    @Temporal(TemporalType.TIME)
     @Column
     protected ZonedDateTime modifiedDateTime = ZonedDateTime.now();
 }
