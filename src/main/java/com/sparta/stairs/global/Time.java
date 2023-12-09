@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @MappedSuperclass
-public class Timestamped {
+public class Time {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
