@@ -1,6 +1,6 @@
 package com.sparta.stairs.user.controller;
 
-import com.sparta.stairs.security.UserDetailsimplements;
+import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
 import com.sparta.stairs.user.dto.ProfileResponseDto;
@@ -30,7 +30,7 @@ public class UserController {
 	// 비밀번호 변경
 	@PatchMapping("/password")
 	public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordRequestDto requestDto,
-												 @AuthenticationPrincipal UserDetailsimplements userDetails) {
+												 @AuthenticationPrincipal UserDetailsImpl userDetails) {
 
 		userService.changePassword(requestDto, userDetails.getUser());
 		return new ResponseEntity<>("비밀번호가 정상적으로 변경되었습니다.", HttpStatus.OK);
@@ -41,7 +41,7 @@ public class UserController {
 	@PatchMapping("/{userId}/profile")
 	public ResponseEntity<String> modifyProfile(@PathVariable Long userId,
 																  @Valid @RequestBody ProfileModifyRequestDto requestDto,
-																  @AuthenticationPrincipal UserDetailsimplements userDetails) {
+																  @AuthenticationPrincipal UserDetailsImpl userDetails) {
 		userService.modifyProfile(userId, requestDto, userDetails);
 		return new ResponseEntity<>("프로필이 정상적으로 수정되었습니다.", HttpStatus.OK);
 	}

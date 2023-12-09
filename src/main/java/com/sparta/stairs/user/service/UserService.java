@@ -1,8 +1,9 @@
 package com.sparta.stairs.user.service;
 
+import com.sparta.stairs.auth.jwt.JwtUtil;
 import com.sparta.stairs.global.exception.CustomException;
 import com.sparta.stairs.global.exception.user.NotFoundUserException;
-import com.sparta.stairs.security.UserDetailsimplements;
+import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
 import com.sparta.stairs.user.dto.ProfileResponseDto;
@@ -27,6 +28,7 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final UserPasswordHistoryRepository userPasswordHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
+	private final JwtUtil jwtUtil;
 
 	public void signup(SignupRequestDto requestDto) {
 		//check duplication
@@ -70,7 +72,7 @@ public class UserService {
 		findUser.changePassword(encodePassword);
 	}
 
-	public void modifyProfile(Long userId, ProfileModifyRequestDto requestDto, UserDetailsimplements userDetails) {
+	public void modifyProfile(Long userId, ProfileModifyRequestDto requestDto, UserDetailsImpl userDetails) {
 		// 현재 수정 요청하는 ID와 수정하려는 프로필 ID가 동일한지 확인
 		if (!userId.equals(userDetails.getUser().getId())) {
 			throw new CustomException(HttpStatus.FORBIDDEN, "사용자 ID가 일치하지 않습니다.");
@@ -106,5 +108,6 @@ public class UserService {
 
 		return new ProfileResponseDto(user.getNickname(), user.getIntroduction(), user.getEmail());
 	}
+
 }
 
