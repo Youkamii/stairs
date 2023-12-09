@@ -1,6 +1,7 @@
 package com.sparta.stairs.comment.entity;
 
 import com.sparta.stairs.comment.dto.CommentRequestDto;
+import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.commentlike.entity.CommentLike;
 import com.sparta.stairs.global.Timestamped;
 import com.sparta.stairs.post.entity.Post;
@@ -45,7 +46,8 @@ public class Comment extends Timestamped {
         post.getComments().add(this);
     };
 
-    public void updateComment(CommentRequestDto requestDto) {
+    public void updateComment(CommentUpdateRequestDto requestDto) {
         this.commentText = requestDto.getCommentText();
+        this.modifiedAt = requestDto.getModifiedAt();
     }
 }

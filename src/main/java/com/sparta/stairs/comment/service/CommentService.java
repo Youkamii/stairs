@@ -2,6 +2,7 @@ package com.sparta.stairs.comment.service;
 
 import com.sparta.stairs.comment.dto.CommentRequestDto;
 import com.sparta.stairs.comment.dto.CommentResponseDto;
+import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.comment.entity.Comment;
 import com.sparta.stairs.comment.repository.CommentRepository;
 import com.sparta.stairs.post.entity.Post;
@@ -29,7 +30,7 @@ public class CommentService {
     }
 
     @Transactional
-    public CommentResponseDto updateComment(Long postId, Long commentId, CommentRequestDto requestDto, User user) {
+    public CommentResponseDto updateComment(Long postId, Long commentId, CommentUpdateRequestDto requestDto, User user) {
         Comment comment = verifyCommentIdAndUser(postId, commentId, user);
         comment.updateComment(requestDto);
 
