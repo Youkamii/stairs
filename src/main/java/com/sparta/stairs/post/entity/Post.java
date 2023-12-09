@@ -1,11 +1,16 @@
-package com.sparta.stairs.post.entity;
+package com.moon.slopery.post.entity;
 
-import com.sparta.stairs.post.dto.PostRequestDto;
+import com.moon.slopery.comment.entity.Comment;
+import com.moon.slopery.global.Time;
+import com.moon.slopery.post.dto.PostUpdateRequestDto;
+import com.moon.slopery.user.entity.User;
+import com.moon.slopery.post.dto.PostRequestDto;
+import com.sparta.stairs.global.Timestamped;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,7 +18,7 @@ import java.util.List;
 @Table(name = "posts")
 @Getter
 @NoArgsConstructor
-public class Post extends Time {
+public class Post extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +43,9 @@ public class Post extends Time {
         this.user = user;
     }
 
-    public void updatePost(PostRequestDto requestDto) {
+    public void updatePost(PostUpdateRequestDto requestDto) {
         this.title = requestDto.getTitle();
         this.content = requestDto.getContent();
+        this.modifiedAt = requestDto.getModifiedAt();
     }
 }
-

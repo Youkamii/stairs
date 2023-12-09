@@ -1,9 +1,11 @@
-package com.sparta.stairs.post.controller;
+package com.moon.slopery.post.controller;
 
+import com.moon.slopery.post.dto.PostRequestDto;
+import com.moon.slopery.post.dto.PostResponseDto;
+import com.moon.slopery.post.service.PostService;
+import com.moon.slopery.security.UserDetailsImpl;
 import com.sparta.stairs.global.CommonResponseDto;
-import com.sparta.stairs.post.dto.PostRequestDto;
-import com.sparta.stairs.post.dto.PostResponseDto;
-import com.sparta.stairs.post.service.PostService;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -62,7 +64,7 @@ public class PostController {
 
     // 게시글 수정
     @PatchMapping("/{postId}")
-    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @Valid @RequestBody PostRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @Valid @RequestBody PostUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         PostResponseDto responseDto = postService.updatePost(postId, requestDto, userDetails.getUser());
 
         return new ResponseEntity<>(responseDto, HttpStatus.OK);

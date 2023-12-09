@@ -1,8 +1,11 @@
-package com.sparta.stairs.post.dto;
+package com.moon.slopery.post.dto;
 
-import com.sparta.stairs.post.entity.Post;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.moon.slopery.comment.dto.CommentResponseDto;
+import com.moon.slopery.post.entity.Post;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -13,8 +16,10 @@ public class PostResponseDto {
     private final String writer;
     private final String title;
     private final String content;
-    private final ZonedDateTime createdAt;
-    private final ZonedDateTime modifiedAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private ZonedDateTime createdAt;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private ZonedDateTime modifiedAt;
     private final List<CommentResponseDto> commentResponseDtoList;
 
     public PostResponseDto(Post post) {
@@ -22,8 +27,13 @@ public class PostResponseDto {
         this.writer = post.getUser().getUserId();
         this.title = post.getTitle();
         this.content = post.getContent();
-        this.createdAt = post.getCreatedAt();
-        this.modifiedAt = post.getModifiedAt();
+
+        if (!post.getCreatedAt().equals(post.getModifiedAt())) {
+            this.modifiedAt = post.getModifiedAt();
+        } else {
+            this.createdAt = post.getCreatedAt();
+        }
+
         this.commentResponseDtoList = post.getCommentList().stream().map(CommentResponseDto::new).toList();
     }
 }

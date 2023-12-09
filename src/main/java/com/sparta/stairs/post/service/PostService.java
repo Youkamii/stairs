@@ -1,9 +1,15 @@
-package com.sparta.stairs.post.service;
+package com.moon.slopery.post.service;
 
+import com.moon.slopery.global.CustomException;
+import com.moon.slopery.post.dto.PostUpdateRequestDto;
+import com.moon.slopery.user.entity.User;
+import com.moon.slopery.post.dto.PostRequestDto;
+import com.moon.slopery.post.dto.PostResponseDto;
+import com.moon.slopery.post.entity.Post;
+import com.moon.slopery.post.repository.PostRepository;
+import com.moon.slopery.user.entity.UserRoleEnum;
 import com.sparta.stairs.global.CustomException;
-import com.sparta.stairs.post.dto.PostRequestDto;
-import com.sparta.stairs.post.dto.PostResponseDto;
-import com.sparta.stairs.post.entity.Post;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import com.sparta.stairs.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -69,7 +75,7 @@ public class PostService {
 
     // 게시글 수정
     @Transactional
-    public PostResponseDto updatePost(Long postId, PostRequestDto requestDto, User user) {
+    public PostResponseDto updatePost(Long postId, PostUpdateRequestDto requestDto, User user) {
         Post post = verifyPostIdAndUser(postId, user);
         post.updatePost(requestDto);
 
