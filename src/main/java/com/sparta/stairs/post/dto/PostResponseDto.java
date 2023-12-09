@@ -1,11 +1,9 @@
-package com.moon.slopery.post.dto;
+package com.sparta.stairs.post.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.moon.slopery.comment.dto.CommentResponseDto;
-import com.moon.slopery.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
 
@@ -20,6 +18,7 @@ public class PostResponseDto {
     private ZonedDateTime createdAt;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private ZonedDateTime modifiedAt;
+    private final int likeCount;
     private final List<CommentResponseDto> commentResponseDtoList;
 
     public PostResponseDto(Post post) {
@@ -33,7 +32,7 @@ public class PostResponseDto {
         } else {
             this.createdAt = post.getCreatedAt();
         }
-
-        this.commentResponseDtoList = post.getCommentList().stream().map(CommentResponseDto::new).toList();
+        this.likeCount = post.getPostLikes().size();
+        this.commentResponseDtoList = post.getComments().stream().map(CommentResponseDto::new).toList();
     }
 }

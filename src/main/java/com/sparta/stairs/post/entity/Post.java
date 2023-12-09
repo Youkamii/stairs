@@ -1,12 +1,9 @@
-package com.moon.slopery.post.entity;
+package com.sparta.stairs.post.entity;
 
-import com.moon.slopery.comment.entity.Comment;
-import com.moon.slopery.global.Time;
-import com.moon.slopery.post.dto.PostUpdateRequestDto;
-import com.moon.slopery.user.entity.User;
-import com.moon.slopery.post.dto.PostRequestDto;
 import com.sparta.stairs.global.Timestamped;
+import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.postlike.entity.PostLike;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +32,10 @@ public class Post extends Timestamped {
     private User user;
 
     @OneToMany(mappedBy = "post")
-    private List<Comment> commentList = new ArrayList<>();
+    private List<PostLike> postLikes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments = new ArrayList<>();
 
     public Post(PostRequestDto requestDto, User user) {
         this.title = requestDto.getTitle();

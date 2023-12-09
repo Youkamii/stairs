@@ -1,11 +1,10 @@
-package com.moon.slopery.post.controller;
+package com.sparta.stairs.post.controller;
 
-import com.moon.slopery.post.dto.PostRequestDto;
-import com.moon.slopery.post.dto.PostResponseDto;
-import com.moon.slopery.post.service.PostService;
-import com.moon.slopery.security.UserDetailsImpl;
 import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.post.dto.PostRequestDto;
+import com.sparta.stairs.post.dto.PostResponseDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

@@ -1,4 +1,4 @@
-package com.moon.slopery.post.dto;
+package com.sparta.stairs.post.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
@@ -14,3 +14,4 @@ public class PostRequestDto {
     @NotBlank
     private String content;
 }
+
