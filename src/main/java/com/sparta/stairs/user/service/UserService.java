@@ -1,7 +1,6 @@
 package com.sparta.stairs.user.service;
 
-import com.sparta.stairs.global.exception.CustomException;
-import com.sparta.stairs.global.exception.user.NotFoundUserException;
+import com.sparta.stairs.common.exception.CustomException;
 import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
@@ -81,7 +80,7 @@ public class UserService {
 
 		// 사용자 정보 조회
 		User user = userRepository.findById(userId)
-				.orElseThrow(NotFoundUserException::new);
+				.orElseThrow( () -> new CustomException(HttpStatus.BAD_REQUEST, "유저를 찾을 수 없습니다."));
 
 		// 이전 닉네임과 동일한 경우 예외 발생
 		if (user.getNickname().equals(requestDto.getNickname())) {

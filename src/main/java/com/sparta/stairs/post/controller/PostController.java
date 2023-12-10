@@ -1,6 +1,6 @@
 package com.sparta.stairs.post.controller;
 
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostResponseDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;

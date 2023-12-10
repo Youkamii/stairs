@@ -1,4 +1,4 @@
-package com.sparta.stairs.global.dto;
+package com.sparta.stairs.common.dto;
 
 import lombok.Builder;
 import lombok.Getter;

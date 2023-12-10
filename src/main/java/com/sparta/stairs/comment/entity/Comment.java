@@ -3,7 +3,7 @@ package com.sparta.stairs.comment.entity;
 import com.sparta.stairs.comment.dto.CommentRequestDto;
 import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.commentlike.entity.CommentLike;
-import com.sparta.stairs.global.Time;
+import com.sparta.stairs.common.BaseEntity;
 import com.sparta.stairs.post.entity.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,7 +17,7 @@ import java.util.List;
 @Getter
 @Table(name = "comments")
 @NoArgsConstructor
-public class Comment extends Time {
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -45,7 +45,7 @@ public class Comment extends Time {
 
     public void addCommentToPost(Post post) {
         post.getComments().add(this);
-    };
+    }
 
     public void updateComment(CommentUpdateRequestDto requestDto) {
         this.commentText = requestDto.getCommentText();

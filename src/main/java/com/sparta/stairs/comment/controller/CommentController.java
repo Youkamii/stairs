@@ -4,7 +4,7 @@ import com.sparta.stairs.comment.dto.CommentRequestDto;
 import com.sparta.stairs.comment.dto.CommentResponseDto;
 import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.comment.service.CommentService;
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.sparta.stairs.global;
+package com.sparta.stairs.common;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
@@ -10,7 +10,7 @@ import java.time.ZonedDateTime;
 
 @Getter
 @MappedSuperclass
-public class Time {
+public class BaseEntity {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)

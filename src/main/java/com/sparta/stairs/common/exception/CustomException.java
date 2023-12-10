@@ -1,4 +1,4 @@
-package com.sparta.stairs.global.exception;
+package com.sparta.stairs.common.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

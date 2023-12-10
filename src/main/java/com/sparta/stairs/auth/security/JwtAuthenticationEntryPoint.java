@@ -1,7 +1,7 @@
 package com.sparta.stairs.auth.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.stairs.global.dto.CustomResponseDto;
+import com.sparta.stairs.common.dto.CustomResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +20,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
-        CustomResponseDto commonResponseDto = new CustomResponseDto("토큰이 유효하지 않습니다.", HttpStatus.BAD_REQUEST);
+        CustomResponseDto commonResponseDto = new CustomResponseDto("요청이 유효하지 않습니다.", HttpStatus.BAD_REQUEST);
         response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
         response.setContentType("application/json; charset=UTF-8");
         response.getWriter().write(objectMapper.writeValueAsString(commonResponseDto));

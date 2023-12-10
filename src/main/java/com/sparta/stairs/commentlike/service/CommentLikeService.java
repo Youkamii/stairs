@@ -3,7 +3,7 @@ package com.sparta.stairs.commentlike.service;
 import com.sparta.stairs.comment.repository.CommentRepository;
 import com.sparta.stairs.commentlike.entity.CommentLike;
 import com.sparta.stairs.commentlike.repository.CommentLikeRepository;
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
