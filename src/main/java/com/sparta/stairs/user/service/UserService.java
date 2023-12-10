@@ -52,19 +52,20 @@ public class UserService {
 				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
 
 		//1. 히스토리와 비교
-		List<UserPasswordHistory> passwords = userPasswordHistoryRepository.findTop3ByUserOrderByCreatedAtDesc(user);
-
-		for (UserPasswordHistory password : passwords) {
-			System.out.println(password);
-		}
+		List<UserPasswordHistory> passwords = userPasswordHistoryRepository.findByUserOrderByCreatedAtDesc(user);
 
 		String newPassword = requestDto.getNewPassword();
 		passwords.stream().map(UserPasswordHistory::getBeforePassword)
 				.forEach(pwd -> {if (passwordEncoder.matches(newPassword, pwd)) {
 						throw new CustomException(HttpStatus.BAD_REQUEST, "최근 3번 안에 사용한 비밀번호는 사용할 수 없습니다.");}});
 
-//		2. 히스토리 저장, 비밀번호 변경
+		//2. 히스토리 3개 유지하며, 비밀번호 변경
 		String encodePassword = passwordEncoder.encode(newPassword);
+
+		if (passwords.size() == 3) {
+			UserPasswordHistory oldHistory = userPasswordHistoryRepository.findById(passwords.get(2).getId()).get();
+			userPasswordHistoryRepository.delete(oldHistory);
+		}
 
 		UserPasswordHistory userPasswordHistory = new UserPasswordHistory(findUser, encodePassword);
 		userPasswordHistoryRepository.save(userPasswordHistory);

@@ -1,10 +1,9 @@
 package com.sparta.stairs.user.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.NotBlank;
-import org.springframework.security.core.parameters.P;
 
 @Getter
 @Setter
@@ -19,7 +18,7 @@ public class SignupRequestDto {
 	private String password;
 
 	@NotBlank
-	@Pattern(regexp = "^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$", message = "올바르지 않은 이메일 형식입니다.")
+	@Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식에 맞지 않습니다.")
 	private String email;
 
 }
