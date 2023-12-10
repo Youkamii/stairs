@@ -1,17 +1,16 @@
 package com.sparta.stairs.auth.security;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.stairs.auth.jwt.JwtUtil;
-import com.sparta.stairs.global.dto.CustomResponseDto;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.lang.Strings;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContext;
@@ -27,32 +26,50 @@ import java.io.IOException;
 public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
+    private final RedisRepository redisRepository;
     private final UserDetailsServiceImpl userDetailsService;
-    private final ObjectMapper objectMapper;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        String token = jwtUtil.resolveToken(request);
+        String accessToken = jwtUtil.resolveToken(request, jwtUtil.ACCESS_TOKEN_HEADER);
+        String refreshToken = jwtUtil.resolveToken(request, jwtUtil.REFRESH_TOKEN_HEADER);
 
-        if (StringUtils.hasText(token)) {
-            if (jwtUtil.validateToken(token)) {
-                Claims info = jwtUtil.getUserInfoFromToken(token);
-
+        //1. Access Token 존재?
+        if(StringUtils.hasText(accessToken) && !redisRepository.hasBlackList(accessToken)) {
+            //1-1. Access Token 유효?
+            if(jwtUtil.validateToken(accessToken)) {
+                Claims info = jwtUtil.getUserInfoFromToken(accessToken);
                 String username = info.getSubject();
-                SecurityContext context = SecurityContextHolder.createEmptyContext();
-                UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-                Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-                context.setAuthentication(authentication);
-                SecurityContextHolder.setContext(context);
+                setAuthentication(username);
             } else {
-                CustomResponseDto result = CustomResponseDto.builder().message("토큰이 유효하지 않습니다.").statusCode(HttpStatus.BAD_REQUEST).build();
-                response.setStatus(HttpServletResponse.SC_BAD_REQUEST);
-                response.setContentType("application/json; charset=UTF-8");
-                response.getWriter().write(objectMapper.writeValueAsString(result));
-                return;
+                //2. Refresh Token 존재?
+                if (Strings.hasText(refreshToken)) {
+                    //2-1. Refresh Token 유효 && Redis에 존재?
+                    if (jwtUtil.validateToken(refreshToken) && redisRepository.hasRefreshToken(refreshToken)) {
+                        //Reissue Access Token && add Header
+                        Claims info = jwtUtil.getUserInfoFromToken(refreshToken);
+                        String username = info.getSubject();
+                        String newToken = jwtUtil.createAccessToken(username, jwtUtil.getUserRole(info));
+                        response.setHeader(jwtUtil.ACCESS_TOKEN_HEADER, newToken);
+                        response.setHeader(jwtUtil.REFRESH_TOKEN_HEADER, jwtUtil.BEARER_PREFIX + refreshToken);
+                        setAuthentication(username);
+                    }
+                }
             }
         }
-
         filterChain.doFilter(request, response);
+    }
+
+    public void setAuthentication(String username) {
+        SecurityContext context = SecurityContextHolder.createEmptyContext();
+        Authentication authentication = createAuthentication(username);
+        context.setAuthentication(authentication);
+
+        SecurityContextHolder.setContext(context);
+    }
+
+    private Authentication createAuthentication(String username) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }

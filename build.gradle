@@ -25,24 +25,18 @@ dependencies {
     // JPA
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 
-    // SECURITY
+    // Security
     implementation 'org.springframework.boot:spring-boot-starter-security'
 
-    // THYMELEAF
-    implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
-
-    // WEB
+    // Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    // JWT
+    // Jwt
     compileOnly group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.5'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.5'
 
-    implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
-    implementation 'org.jetbrains:annotations:24.0.0'
-
-    // LOMBOK
+    // Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -50,11 +44,16 @@ dependencies {
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.springframework.security:spring-security-test'
 
-    // JAKARTA
+    // Validation
     implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
 
     // MySQL
     runtimeOnly 'com.mysql:mysql-connector-j:8.2.0'
+
+    // Redis
+    implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+    implementation 'org.jetbrains:annotations:24.0.0'
 }
 
 tasks.named('test') {

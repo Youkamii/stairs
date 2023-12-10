@@ -2,8 +2,11 @@ package com.sparta.stairs.auth.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.stairs.auth.jwt.JwtUtil;
+import com.sparta.stairs.auth.security.JwtAccessDeniedHandler;
+import com.sparta.stairs.auth.security.JwtAuthenticationEntryPoint;
 import com.sparta.stairs.auth.security.JwtAuthenticationFilter;
 import com.sparta.stairs.auth.security.JwtAuthorizationFilter;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +16,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -25,8 +29,11 @@ public class SecurityConfig {
 
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
+    private final RedisRepository redisRepository;
     private final UserDetailsServiceImpl userDetailsService;
+    private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -35,21 +42,24 @@ public class SecurityConfig {
 
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
-        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil, objectMapper);
+        JwtAuthenticationFilter filter = new JwtAuthenticationFilter(jwtUtil, objectMapper, redisRepository);
         filter.setAuthenticationManager(authenticationManager(authenticationConfiguration));
         return filter;
     }
 
     @Bean
     public JwtAuthorizationFilter jwtAuthorizationFilter() {
-        return new JwtAuthorizationFilter(jwtUtil, userDetailsService, objectMapper);
+        return new JwtAuthorizationFilter(jwtUtil, redisRepository, userDetailsService);
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(csrf -> csrf.disable());
+        http.csrf(AbstractHttpConfigurer::disable);
 
         http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
+        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+            .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
 
         http.authorizeHttpRequests(req ->
                 req.requestMatchers("/api/users/signup").permitAll()

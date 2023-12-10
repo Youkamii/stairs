@@ -18,10 +18,12 @@ import java.util.Date;
 @Slf4j(topic = "JwtUil")
 public class JwtUtil {
 
-	public static final String AUTHORIZATION_HEADER = "Authorization";
 	public static final String AUTHORIZATION_KEY = "auth";
 	public static final String BEARER_PREFIX = "Bearer ";
-	private final long ACCESS_TOKEN_TIME  = 1 * 60 * 60 * 1000L;
+	public static final long ACCESS_TOKEN_TIME  = 1 * 60 * 60 * 1000L;
+	public static final String ACCESS_TOKEN_HEADER = "Authorization";
+	public static final long REFRESH_TOKEN_TIME  = 3 * 60 * 60 * 1000L;
+	public static final String REFRESH_TOKEN_HEADER = "Refresh-Token";
 
 	@Value("${jwt.secret.key}")
 	private String secretKey;
@@ -36,47 +38,49 @@ public class JwtUtil {
 		key = Keys.hmacShaKeyFor(bytes);
 	}
 
-	public String resolveToken(HttpServletRequest request) {
-		String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+	public String resolveToken(HttpServletRequest request, String header) {
+		String bearerToken = request.getHeader(header);
 		if (StringUtils.hasText(bearerToken) && bearerToken.startsWith(BEARER_PREFIX)) {
 			return bearerToken.substring(7);
 		}
 		return null;
 	}
+	public String createAccessToken(String username, UserRoleEnum role) {
+		return this.createToken(username, role, ACCESS_TOKEN_TIME);
+	}
 
-	public String createToken(String username, UserRoleEnum role) {
+	public String createRefreshToken(String username, UserRoleEnum role) {
+		return this.createToken(username, role, REFRESH_TOKEN_TIME);
+	}
+
+	private String createToken(String username, UserRoleEnum role, long expiration) {
 		Date date = new Date();
 
 		return BEARER_PREFIX +
 				Jwts.builder()
 						.setSubject(username)
-						.setExpiration(new Date(date.getTime() + ACCESS_TOKEN_TIME))
+						.setExpiration(new Date(date.getTime() + expiration))
 						.claim(AUTHORIZATION_KEY, role)
-						.setIssuedAt(date) // 발급일
+						.setIssuedAt(date)
 						.signWith(key, signatureAlgorithm)
 						.compact();
 	}
 
 	public boolean validateToken(String token) {
 		try {
-			//토큰의 위변조, 만료 등 검증을 한 줄로 해결
 			Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
 			return true;
-		} catch (SecurityException | MalformedJwtException | SignatureException e) {
-			log.error("Invalid JWT signature, 유효하지 않는 JWT 서명 입니다.");
 		} catch (ExpiredJwtException e) {
 			log.error("Expired JWT token, 만료된 JWT token 입니다.");
-		} catch (UnsupportedJwtException e) {
-			log.error("Unsupported JWT token, 지원되지 않는 JWT 토큰 입니다.");
-		} catch (IllegalArgumentException e) {
-			log.error("JWT claims is empty, 잘못된 JWT 토큰 입니다.");
+			return false;
 		}
-		return false;
 	}
 
 	public Claims getUserInfoFromToken(String token) {
 		return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token).getBody();
 	}
 
-
+	public UserRoleEnum getUserRole(Claims claims) {
+		return UserRoleEnum.valueOf(claims.get(AUTHORIZATION_KEY, String.class));
+	}
 }

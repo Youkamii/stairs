@@ -52,4 +52,12 @@ public class UserController {
 		ProfileResponseDto profile = userService.findProfile(userId);
 		return new ResponseEntity<>(profile, HttpStatus.OK);
 	}
+
+	//로그아웃
+	@PostMapping("/logout")
+	public ResponseEntity<String> logout(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken,
+										 @AuthenticationPrincipal UserDetailsImpl userDetails) {
+		userService.logout(accessToken.substring(7), refreshToken.substring(7), userDetails);
+		return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
+	}
 }

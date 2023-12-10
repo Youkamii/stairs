@@ -2,11 +2,12 @@ package com.sparta.stairs.auth.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.stairs.auth.jwt.JwtUtil;
+import com.sparta.stairs.global.dto.CustomResponseDto;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.UserRoleEnum;
 import com.sparta.stairs.user.dto.LoginRequestDto;
 import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -23,10 +24,12 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
     private final JwtUtil jwtUtil;
     private final ObjectMapper objectMapper;
+    private final RedisRepository redisRepository;
 
-    public JwtAuthenticationFilter(JwtUtil jwtUtil, ObjectMapper objectMapper) {
+    public JwtAuthenticationFilter(JwtUtil jwtUtil, ObjectMapper objectMapper, RedisRepository redisRepository) {
         this.jwtUtil = jwtUtil;
         this.objectMapper = objectMapper;
+        this.redisRepository = redisRepository;
         setFilterProcessesUrl("/api/users/login");
     }
 
@@ -50,17 +53,29 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     }
 
     @Override
-    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException {
         String username = ((UserDetailsImpl) authResult.getPrincipal()).getUsername();
         UserRoleEnum role = ((UserDetailsImpl) authResult.getPrincipal()).getUser().getRole();
 
-        String token = jwtUtil.createToken(username, role);
+        String accessToken = jwtUtil.createAccessToken(username, role);
+        String refreshToken = jwtUtil.createRefreshToken(username, role);
 
-        response.addHeader(jwtUtil.AUTHORIZATION_HEADER, token);
+        response.addHeader(jwtUtil.ACCESS_TOKEN_HEADER, accessToken);
+        response.addHeader(jwtUtil.REFRESH_TOKEN_HEADER, refreshToken);
+
+        redisRepository.setRefreshToken(refreshToken.substring(7), username);
+
+        CustomResponseDto commonResponseDto = new CustomResponseDto("로그인에 성공하셨습니다.", HttpStatus.OK);
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(commonResponseDto));
     }
 
     @Override
-    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException {
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
+
+        CustomResponseDto commonResponseDto = new CustomResponseDto("로그인에 실패하셨습니다.", HttpStatus.UNAUTHORIZED);
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString(commonResponseDto));
     }
 }

@@ -1,8 +1,8 @@
 package com.sparta.stairs.user.service;
 
-import com.sparta.stairs.auth.jwt.JwtUtil;
 import com.sparta.stairs.global.exception.CustomException;
 import com.sparta.stairs.global.exception.user.NotFoundUserException;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
@@ -26,9 +26,9 @@ import java.util.Optional;
 public class UserService {
 
 	private final UserRepository userRepository;
-	private final UserPasswordHistoryRepository userPasswordHistoryRepository;
 	private final PasswordEncoder passwordEncoder;
-	private final JwtUtil jwtUtil;
+	private final RedisRepository redisRepository;
+	private final UserPasswordHistoryRepository userPasswordHistoryRepository;
 
 	public void signup(SignupRequestDto requestDto) {
 		//check duplication
@@ -107,6 +107,20 @@ public class UserService {
 				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
 
 		return new ProfileResponseDto(user.getNickname(), user.getIntroduction(), user.getEmail());
+	}
+
+	//로그아웃
+	public void logout(String accessToken, String refreshToken, UserDetailsImpl userDetails) {
+		//1. 유저 검증
+		User user = userDetails.getUser();
+		userRepository.findById(user.getId())
+				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
+		
+		//토큰 검증은 Filter
+		//AccessToken BlackList 등록
+		redisRepository.setBlackList(accessToken, user.getUsername());
+		//RefreshToken 아직 존재 시 삭제
+		if (redisRepository.hasRefreshToken(refreshToken)) redisRepository.deleteRefreshToken(refreshToken);
 	}
 
 }
