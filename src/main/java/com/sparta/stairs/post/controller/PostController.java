@@ -1,10 +1,10 @@
-package com.sparta.stairs.redis.post.controller;
+package com.sparta.stairs.post.controller;
 
 import com.sparta.stairs.global.CommonResponseDto;
-import com.sparta.stairs.redis.post.dto.PostRequestDto;
-import com.sparta.stairs.redis.post.dto.PostResponseDto;
-import com.sparta.stairs.redis.post.dto.PostUpdateRequestDto;
-import com.sparta.stairs.redis.post.service.PostService;
+import com.sparta.stairs.post.dto.PostRequestDto;
+import com.sparta.stairs.post.dto.PostResponseDto;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.post.service.PostService;
 import com.sparta.stairs.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

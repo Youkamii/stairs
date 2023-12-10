@@ -1,8 +1,8 @@
-package com.sparta.stairs.redis.post.entity;
+package com.sparta.stairs.post.entity;
 
 import com.sparta.stairs.global.Time;
-import com.sparta.stairs.redis.post.dto.PostRequestDto;
-import com.sparta.stairs.redis.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.post.dto.PostRequestDto;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import com.sparta.stairs.postlike.entity.PostLike;
 import jakarta.persistence.*;
 import lombok.Getter;

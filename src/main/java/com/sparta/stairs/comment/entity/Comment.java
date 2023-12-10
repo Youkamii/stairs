@@ -4,7 +4,7 @@ import com.sparta.stairs.comment.dto.CommentRequestDto;
 import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.commentlike.entity.CommentLike;
 import com.sparta.stairs.global.Time;
-import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -6,7 +6,7 @@ import com.sparta.stairs.auth.security.JwtAccessDeniedHandler;
 import com.sparta.stairs.auth.security.JwtAuthenticationEntryPoint;
 import com.sparta.stairs.auth.security.JwtAuthenticationFilter;
 import com.sparta.stairs.auth.security.JwtAuthorizationFilter;
-import com.sparta.stairs.redis.RedisRepository;
+import com.sparta.stairs.user.RedisRepository;
 import com.sparta.stairs.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;

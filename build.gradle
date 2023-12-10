@@ -54,6 +54,11 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
     implementation 'org.jetbrains:annotations:24.0.0'
+
+    // Swagger (Springdoc OpenAPI)
+    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
+    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+
 }
 
 tasks.named('test') {

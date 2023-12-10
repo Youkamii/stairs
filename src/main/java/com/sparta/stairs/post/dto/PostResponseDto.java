@@ -1,8 +1,8 @@
-package com.sparta.stairs.redis.post.dto;
+package com.sparta.stairs.post.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.sparta.stairs.comment.dto.CommentResponseDto;
-import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import lombok.Getter;
 
 import java.time.ZonedDateTime;

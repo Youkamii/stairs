@@ -3,7 +3,7 @@ package com.sparta.stairs.postlike.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import com.sparta.stairs.user.entity.User;
 
 

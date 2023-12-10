@@ -1,14 +1,14 @@
 package com.sparta.stairs.postlike.service;
 
 import com.sparta.stairs.global.CommonResponseDto;
-import com.sparta.stairs.redis.post.repository.PostRepository;
+import com.sparta.stairs.post.repository.PostRepository;
 import com.sparta.stairs.postlike.entity.PostLike;
 import com.sparta.stairs.postlike.repository.PostLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import com.sparta.stairs.user.entity.User;
 
 

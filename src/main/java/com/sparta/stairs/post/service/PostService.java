@@ -1,11 +1,11 @@
-package com.sparta.stairs.redis.post.service;
+package com.sparta.stairs.post.service;
 
 import com.sparta.stairs.global.CustomException;
-import com.sparta.stairs.redis.post.dto.PostRequestDto;
-import com.sparta.stairs.redis.post.dto.PostResponseDto;
-import com.sparta.stairs.redis.post.dto.PostUpdateRequestDto;
-import com.sparta.stairs.redis.post.entity.Post;
-import com.sparta.stairs.redis.post.repository.PostRepository;
+import com.sparta.stairs.post.dto.PostRequestDto;
+import com.sparta.stairs.post.dto.PostResponseDto;
+import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.post.repository.PostRepository;
+import com.sparta.stairs.post.entity.Post;
 import com.sparta.stairs.user.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

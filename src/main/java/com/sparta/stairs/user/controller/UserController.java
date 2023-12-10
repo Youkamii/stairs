@@ -1,11 +1,18 @@
 package com.sparta.stairs.user.controller;
 
+import com.sparta.stairs.BaseResponse;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
 import com.sparta.stairs.user.dto.ProfileResponseDto;
 import com.sparta.stairs.user.dto.SignupRequestDto;
 import com.sparta.stairs.user.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,6 +28,10 @@ public class UserController {
 	private final UserService userService;
 
 	// 회원가입
+	@Operation(summary = "signup", description = "회원 가입")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "회원 가입 성공", useReturnTypeSchema = true)
+	})
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDto requestDto) {
 		userService.signup(requestDto);

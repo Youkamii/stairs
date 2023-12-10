@@ -3,7 +3,7 @@ package com.sparta.stairs.auth.security;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.stairs.auth.jwt.JwtUtil;
 import com.sparta.stairs.global.dto.CustomResponseDto;
-import com.sparta.stairs.redis.RedisRepository;
+import com.sparta.stairs.user.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.UserRoleEnum;
 import com.sparta.stairs.user.dto.LoginRequestDto;

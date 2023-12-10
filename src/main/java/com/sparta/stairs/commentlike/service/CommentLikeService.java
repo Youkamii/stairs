@@ -4,12 +4,12 @@ import com.sparta.stairs.comment.repository.CommentRepository;
 import com.sparta.stairs.commentlike.entity.CommentLike;
 import com.sparta.stairs.commentlike.repository.CommentLikeRepository;
 import com.sparta.stairs.global.CommonResponseDto;
-import com.sparta.stairs.redis.post.repository.PostRepository;
+import com.sparta.stairs.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.post.entity.Post;
 import com.sparta.stairs.user.entity.User;
 import com.sparta.stairs.comment.entity.Comment;
 
