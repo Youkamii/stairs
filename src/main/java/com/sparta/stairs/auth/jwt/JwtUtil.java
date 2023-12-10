@@ -20,7 +20,7 @@ public class JwtUtil {
 
 	public static final String AUTHORIZATION_KEY = "auth";
 	public static final String BEARER_PREFIX = "Bearer ";
-	public static final long ACCESS_TOKEN_TIME  = 1 * 60 * 60 * 1000L;
+	public static final long ACCESS_TOKEN_TIME  = 60 * 60 * 1000L;
 	public static final String ACCESS_TOKEN_HEADER = "Authorization";
 	public static final long REFRESH_TOKEN_TIME  = 3 * 60 * 60 * 1000L;
 	public static final String REFRESH_TOKEN_HEADER = "Refresh-Token";
