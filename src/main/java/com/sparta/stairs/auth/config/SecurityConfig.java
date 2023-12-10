@@ -6,7 +6,7 @@ import com.sparta.stairs.auth.security.JwtAccessDeniedHandler;
 import com.sparta.stairs.auth.security.JwtAuthenticationEntryPoint;
 import com.sparta.stairs.auth.security.JwtAuthenticationFilter;
 import com.sparta.stairs.auth.security.JwtAuthorizationFilter;
-import com.sparta.stairs.user.RedisRepository;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -58,12 +58,13 @@ public class SecurityConfig {
 
         http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-            .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
+//        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+//                .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
 
-        http.authorizeHttpRequests(req ->
-                req.requestMatchers("/api/users/signup").permitAll()
-                        .anyRequest().authenticated()
+        http.authorizeHttpRequests(authz -> authz
+                .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/swagger-resources/**", "/swagger-ui.html", "/webjars/**").permitAll()
+                .requestMatchers("/api/users/signup").permitAll()
+                .anyRequest().authenticated()
         );
 
         http.addFilterBefore(jwtAuthorizationFilter(), JwtAuthenticationFilter.class);
@@ -71,5 +72,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
 }

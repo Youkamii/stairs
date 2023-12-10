@@ -55,9 +55,11 @@ dependencies {
 
     implementation 'org.jetbrains:annotations:24.0.0'
 
-    // Swagger (Springdoc OpenAPI)
-    implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
-    implementation 'org.springdoc:springdoc-openapi-webmvc-core:1.6.9'
+    // Swagger
+    implementation "io.springfox:springfox-boot-starter:3.0.0"
+    implementation "io.springfox:springfox-swagger-ui:3.0.0"
+
+
 
 }
 

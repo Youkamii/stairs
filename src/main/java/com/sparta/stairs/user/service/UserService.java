@@ -2,7 +2,7 @@ package com.sparta.stairs.user.service;
 
 import com.sparta.stairs.global.exception.CustomException;
 import com.sparta.stairs.global.exception.user.NotFoundUserException;
-import com.sparta.stairs.user.RedisRepository;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
 import com.sparta.stairs.user.dto.ProfileModifyRequestDto;

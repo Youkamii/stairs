@@ -1,4 +1,4 @@
-package com.sparta.stairs.user;
+package com.sparta.stairs.redis;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
