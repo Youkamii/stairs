@@ -45,7 +45,7 @@ dependencies {
     testImplementation 'org.springframework.security:spring-security-test'
 
     // Validation
-    implementation 'jakarta.validation:jakarta.validation-api:3.0.0'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
 
     // MySQL
     runtimeOnly 'com.mysql:mysql-connector-j:8.2.0'

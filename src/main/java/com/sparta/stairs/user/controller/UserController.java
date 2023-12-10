@@ -5,7 +5,6 @@ import com.sparta.stairs.user.dto.*;
 import com.sparta.stairs.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -29,7 +28,6 @@ public class UserController {
 		return new ResponseEntity<>("회원가입에 성공하였습니다.", HttpStatus.CREATED);
 	}
 
-
 	@PostMapping("/login")
 	public void login(@Valid @RequestBody LoginRequestDto requestDto) {}
 
@@ -41,7 +39,6 @@ public class UserController {
 		userService.changePassword(requestDto, userDetails.getUser());
 		return new ResponseEntity<>("비밀번호가 정상적으로 변경되었습니다.", HttpStatus.OK);
 	}
-
 
 	// 프로필 수정
 	@PatchMapping("/{userId}/profile")
@@ -66,6 +63,4 @@ public class UserController {
 		userService.logout(accessToken, refreshToken, userDetails);
 		return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
 	}
-
-
 }
