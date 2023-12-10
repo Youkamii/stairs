@@ -59,8 +59,8 @@ public class SecurityConfig {
 
         http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-            .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
+//        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
+//                .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
 
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
@@ -74,5 +74,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
+
 
 }
