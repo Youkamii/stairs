@@ -1,18 +1,11 @@
 package com.sparta.stairs.user.controller;
 
-import com.sparta.stairs.BaseResponse;
 import com.sparta.stairs.security.UserDetailsImpl;
-import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
-import com.sparta.stairs.user.dto.ProfileModifyRequestDto;
-import com.sparta.stairs.user.dto.ProfileResponseDto;
-import com.sparta.stairs.user.dto.SignupRequestDto;
+import com.sparta.stairs.user.dto.*;
 import com.sparta.stairs.user.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Content;
-import io.swagger.v3.oas.annotations.media.ExampleObject;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -28,15 +21,17 @@ public class UserController {
 	private final UserService userService;
 
 	// 회원가입
-	@Operation(summary = "signup", description = "회원 가입")
-	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "회원 가입 성공", useReturnTypeSchema = true)
-	})
+	@Operation(summary = "회원 가입", description = "회원 가입")
+	@ApiResponse(responseCode = "200", description = "회원 가입 성공", useReturnTypeSchema = true)
 	@PostMapping("/signup")
 	public ResponseEntity<String> signup(@Valid @RequestBody SignupRequestDto requestDto) {
 		userService.signup(requestDto);
 		return new ResponseEntity<>("회원가입에 성공하였습니다.", HttpStatus.CREATED);
 	}
+
+
+	@PostMapping("/login")
+	public void login(@Valid @RequestBody LoginRequestDto requestDto) {}
 
 	// 비밀번호 변경
 	@PatchMapping("/password")
@@ -66,9 +61,11 @@ public class UserController {
 
 	//로그아웃
 	@PostMapping("/logout")
-	public ResponseEntity<String> logout(@RequestHeader("Authorization") String accessToken, @RequestHeader("Refresh-Token") String refreshToken,
+	public ResponseEntity<String> logout(@RequestHeader("Authorization") String accessToken, @RequestHeader(value = "Refresh-Token", required = false) String refreshToken,
 										 @AuthenticationPrincipal UserDetailsImpl userDetails) {
-		userService.logout(accessToken.substring(7), refreshToken.substring(7), userDetails);
+		userService.logout(accessToken, refreshToken, userDetails);
 		return new ResponseEntity<>("로그아웃 되었습니다.", HttpStatus.OK);
 	}
+
+
 }

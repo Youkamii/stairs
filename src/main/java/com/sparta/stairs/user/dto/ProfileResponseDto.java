@@ -1,5 +1,8 @@
 package com.sparta.stairs.user.dto;
 
+import lombok.Getter;
+
+@Getter
 public class ProfileResponseDto {
 	private String nickname;
 	private String introduction;

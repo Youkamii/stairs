@@ -1,7 +1,7 @@
 package com.sparta.stairs.auth.security;
 
 import com.sparta.stairs.auth.jwt.JwtUtil;
-import com.sparta.stairs.user.RedisRepository;
+import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.lang.Strings;
