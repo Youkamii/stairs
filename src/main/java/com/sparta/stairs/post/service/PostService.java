@@ -4,6 +4,7 @@ import com.sparta.stairs.common.exception.CustomException;
 import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostResponseDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.post.repository.CustomPostRepository;
 import com.sparta.stairs.post.repository.PostRepository;
 import com.sparta.stairs.post.entity.Post;
 import com.sparta.stairs.user.UserRoleEnum;
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final CustomPostRepository customPostRepository;
 
     // 게시글 작성
     public PostResponseDto createPost(PostRequestDto requestDto, User user) {
@@ -34,8 +36,8 @@ public class PostService {
 
     // 게시글 단건 조회
     public PostResponseDto getPost(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(() ->
-                new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
+        Post post = customPostRepository.findPostFetchJoin(postId).orElseThrow(
+                () -> new IllegalArgumentException("해당 게시물을 찾을 수 없습니다."));
 
         return new PostResponseDto(post);
     }

@@ -10,4 +10,3 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     List<Post> findAllByTitleContainingOrContentContainingOrderByModifiedAt(String titleKeyword, String contentKeyword);
     List<Post> findAllByUser_UsernameOrderByModifiedAt(String userId);
 }
-
