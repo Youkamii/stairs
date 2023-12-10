@@ -1,15 +1,14 @@
 package com.sparta.stairs.post.entity;
 
+import com.sparta.stairs.comment.entity.Comment;
 import com.sparta.stairs.common.BaseEntity;
 import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import com.sparta.stairs.postlike.entity.PostLike;
+import com.sparta.stairs.user.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import com.sparta.stairs.user.entity.User;
-
-import com.sparta.stairs.comment.entity.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,9 +33,11 @@ public class Post extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+//    @BatchSize(size = 5)
     @OneToMany(mappedBy = "post")
     private List<PostLike> postLikes = new ArrayList<>();
 
+//    @BatchSize(size = 5)
     @OneToMany(mappedBy = "post")
     private List<Comment> comments = new ArrayList<>();
 
