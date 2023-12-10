@@ -3,7 +3,6 @@ package com.sparta.stairs.auth.config;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sparta.stairs.auth.jwt.JwtUtil;
 import com.sparta.stairs.auth.security.JwtAccessDeniedHandler;
-import com.sparta.stairs.auth.security.JwtAuthenticationEntryPoint;
 import com.sparta.stairs.auth.security.JwtAuthenticationFilter;
 import com.sparta.stairs.auth.security.JwtAuthorizationFilter;
 import com.sparta.stairs.redis.RedisRepository;
@@ -34,7 +33,6 @@ public class SecurityConfig {
     private final UserDetailsServiceImpl userDetailsService;
     private final JwtAccessDeniedHandler jwtAccessDeniedHandler;
     private final AuthenticationConfiguration authenticationConfiguration;
-    private final JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
@@ -59,8 +57,7 @@ public class SecurityConfig {
 
         http.sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-//        http.exceptionHandling(handler -> handler.authenticationEntryPoint(jwtAuthenticationEntryPoint))
-//                .exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
+        http.exceptionHandling(handler -> handler.accessDeniedHandler(jwtAccessDeniedHandler));
 
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
