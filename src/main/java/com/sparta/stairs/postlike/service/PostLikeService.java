@@ -1,11 +1,16 @@
 package com.sparta.stairs.postlike.service;
 
+import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.redis.post.repository.PostRepository;
 import com.sparta.stairs.postlike.entity.PostLike;
 import com.sparta.stairs.postlike.repository.PostLikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.user.entity.User;
+
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +24,7 @@ public class PostLikeService {
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new NullPointerException("해당 게시물은 존재하지 않습니다."));
 
-        if (user.getUserId().equals(post.getUser().getUserId())) {
+        if (user.getUsername().equals(post.getUser().getUsername())) {
             throw new IllegalArgumentException("자신이 작성한 게시물에는 좋아요를 누를 수 없습니다.");
         }
 

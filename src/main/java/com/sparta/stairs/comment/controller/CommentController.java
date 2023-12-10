@@ -5,12 +5,14 @@ import com.sparta.stairs.comment.dto.CommentResponseDto;
 import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.comment.service.CommentService;
 import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.security.UserDetailsImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
 
 @RestController
 @RequiredArgsConstructor

@@ -1,12 +1,15 @@
-package com.sparta.stairs.post.entity;
+package com.sparta.stairs.redis.post.entity;
 
 import com.sparta.stairs.global.Time;
-import com.sparta.stairs.post.dto.PostRequestDto;
-import com.sparta.stairs.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.redis.post.dto.PostRequestDto;
+import com.sparta.stairs.redis.post.dto.PostUpdateRequestDto;
 import com.sparta.stairs.postlike.entity.PostLike;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import com.sparta.stairs.user.entity.User;
+
+import com.sparta.stairs.comment.entity.Comment;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -3,6 +3,9 @@ package com.sparta.stairs.commentlike.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.user.entity.User;
+import com.sparta.stairs.comment.entity.Comment;
 
 @Entity
 @Getter

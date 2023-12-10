@@ -20,7 +20,7 @@ public class CommentResponseDto {
 
     public CommentResponseDto(Comment comment) {
         this.id = comment.getId();
-        this.writer = comment.getUser().getUserId();
+        this.writer = comment.getUser().getUsername();
         this.commentText = comment.getCommentText();
 
         if (!comment.getCreatedAt().equals(comment.getModifiedAt())) {

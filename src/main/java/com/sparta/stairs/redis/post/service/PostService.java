@@ -1,16 +1,19 @@
-package com.sparta.stairs.post.service;
+package com.sparta.stairs.redis.post.service;
 
 import com.sparta.stairs.global.CustomException;
-import com.sparta.stairs.post.dto.PostRequestDto;
-import com.sparta.stairs.post.dto.PostResponseDto;
-import com.sparta.stairs.post.dto.PostUpdateRequestDto;
-import com.sparta.stairs.post.entity.Post;
-import com.sparta.stairs.post.repository.PostRepository;
+import com.sparta.stairs.redis.post.dto.PostRequestDto;
+import com.sparta.stairs.redis.post.dto.PostResponseDto;
+import com.sparta.stairs.redis.post.dto.PostUpdateRequestDto;
+import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.redis.post.repository.PostRepository;
+import com.sparta.stairs.user.UserRoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import com.sparta.stairs.user.entity.User;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,10 +45,10 @@ public class PostService {
         List<Post> AllPosts = postRepository.findAll();
 
         List<Post> adminPosts = AllPosts.stream().filter(post -> post.getUser().getRole()
-                == UserRoleEnum.ADMIN).collect(Collectors.toList());
+                == UserRoleEnum.ROLE_ADMIN).collect(Collectors.toList());
 
         List<Post> userPosts = AllPosts.stream().filter(post -> post.getUser().getRole()
-                != UserRoleEnum.ADMIN).collect(Collectors.toList());
+                != UserRoleEnum.ROLE_ADMIN).collect(Collectors.toList());
 
         adminPosts.addAll(userPosts);
 
@@ -89,7 +92,7 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow(() ->
                 new CustomException(HttpStatus.NOT_FOUND, "해당 게시물을 찾을 수 없습니다."));
 
-        if (!user.getUserId().equals(post.getUser().getUserId()) && !user.getRole().equals(UserRoleEnum.ADMIN)) {
+        if (!user.getUsername().equals(post.getUser().getUsername()) && !user.getRole().equals(UserRoleEnum.ROLE_ADMIN)) {
             throw new CustomException(HttpStatus.BAD_REQUEST, "작성자 또는 관리자만 수정할 수 있습니다.");
         }
 

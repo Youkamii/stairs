@@ -1,7 +1,12 @@
 package com.sparta.stairs.commentlike.repository;
 
-import com.sparta.stairs.commentlike.entity.CommentLike;
 import org.springframework.data.jpa.repository.JpaRepository;
+import com.sparta.stairs.commentlike.entity.CommentLike;
+import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.user.entity.User;
+
+import com.sparta.stairs.comment.entity.Comment;
+
 
 import java.util.Optional;
 

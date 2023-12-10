@@ -1,6 +1,6 @@
-package com.sparta.stairs.post.repository;
+package com.sparta.stairs.redis.post.repository;
 
-import com.sparta.stairs.post.entity.Post;
+import com.sparta.stairs.redis.post.entity.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

@@ -5,11 +5,13 @@ import com.sparta.stairs.comment.dto.CommentResponseDto;
 import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.comment.entity.Comment;
 import com.sparta.stairs.comment.repository.CommentRepository;
-import com.sparta.stairs.post.entity.Post;
-import com.sparta.stairs.post.repository.PostRepository;
+import com.sparta.stairs.redis.post.entity.Post;
+import com.sparta.stairs.redis.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import com.sparta.stairs.user.entity.User;
+
 
 @Service
 @RequiredArgsConstructor
@@ -51,7 +53,7 @@ public class CommentService {
         Comment comment = commentRepository.findById(commentId).orElseThrow(() ->
                 new IllegalArgumentException("해당 댓글을 찾을 수 없습니다."));
 
-        if (!user.getUserId().equals(comment.getUser().getUserId())) {
+        if (!user.getUsername().equals(comment.getUser().getUsername())) {
             throw new IllegalArgumentException("해당 게시글 작성자가 아닙니다.");
         }
 
