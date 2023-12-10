@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @NoArgsConstructor
@@ -33,6 +36,9 @@ public class User {
 	@Column(nullable = false)
 	private String email;
 
+	@OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<UserPasswordHistory> passwordHistoryList = new ArrayList<>();
+
 	public User(String username, String password, String email) {
 		this.username = username;
 		this.nickname = username;
@@ -56,4 +62,6 @@ public class User {
 	public void changePassword(String newPassword) {
 		this.password = newPassword;
 	}
+
+
 }
