@@ -8,6 +8,6 @@ import java.util.List;
 public interface PostRepository extends JpaRepository<Post, Long> {
 
     List<Post> findAllByTitleContainingOrContentContainingOrderByModifiedAt(String titleKeyword, String contentKeyword);
-    List<Post> findAllByUser_UserIdOrderByModifiedAt(String userId);
+    List<Post> findAllByUser_UsernameOrderByModifiedAt(String userId);
 }
 

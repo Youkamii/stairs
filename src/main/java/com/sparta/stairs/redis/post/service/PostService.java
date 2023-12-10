@@ -68,7 +68,7 @@ public class PostService {
 
     // 내가 작성한 게시글
     public List<PostResponseDto> getMyPosts(String userId) {
-        return postRepository.findAllByUser_UserIdOrderByModifiedAt(userId).stream().map(PostResponseDto::new).toList();
+        return postRepository.findAllByUser_UsernameOrderByModifiedAt(userId).stream().map(PostResponseDto::new).toList();
     }
 
     // 게시글 수정
