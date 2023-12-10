@@ -1,4 +1,4 @@
-package com.sparta.stairs.global;
+package com.sparta.stairs.common.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;

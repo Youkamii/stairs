@@ -1,7 +1,6 @@
 package com.sparta.stairs.user.service;
 
-import com.sparta.stairs.global.exception.CustomException;
-import com.sparta.stairs.global.exception.user.NotFoundUserException;
+import com.sparta.stairs.common.exception.CustomException;
 import com.sparta.stairs.redis.RedisRepository;
 import com.sparta.stairs.security.UserDetailsImpl;
 import com.sparta.stairs.user.dto.ChangePasswordRequestDto;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -80,7 +80,7 @@ public class UserService {
 
 		// 사용자 정보 조회
 		User user = userRepository.findById(userId)
-				.orElseThrow(NotFoundUserException::new);
+				.orElseThrow( () -> new CustomException(HttpStatus.BAD_REQUEST, "유저를 찾을 수 없습니다."));
 
 		// 이전 닉네임과 동일한 경우 예외 발생
 		if (user.getNickname().equals(requestDto.getNickname())) {
@@ -106,6 +106,8 @@ public class UserService {
 		User user = userRepository.findById(userId)
 				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
 
+
+
 		return new ProfileResponseDto(user.getNickname(), user.getIntroduction(), user.getEmail());
 	}
 
@@ -115,12 +117,16 @@ public class UserService {
 		User user = userDetails.getUser();
 		userRepository.findById(user.getId())
 				.orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "사용자를 찾을 수 없습니다."));
-		
+
 		//토큰 검증은 Filter
 		//AccessToken BlackList 등록
 		redisRepository.setBlackList(accessToken, user.getUsername());
+
 		//RefreshToken 아직 존재 시 삭제
-		if (redisRepository.hasRefreshToken(refreshToken)) redisRepository.deleteRefreshToken(refreshToken);
+		if (StringUtils.hasText(refreshToken)) {
+			String token = refreshToken.substring(7);
+			if (redisRepository.hasRefreshToken(token)) redisRepository.deleteRefreshToken(token);
+		}
 	}
 
 }

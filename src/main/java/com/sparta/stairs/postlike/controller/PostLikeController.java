@@ -1,6 +1,6 @@
 package com.sparta.stairs.postlike.controller;
 
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.postlike.service.PostLikeService;
 import com.sparta.stairs.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;

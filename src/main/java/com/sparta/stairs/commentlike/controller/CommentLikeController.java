@@ -1,7 +1,7 @@
 package com.sparta.stairs.commentlike.controller;
 
 import com.sparta.stairs.commentlike.service.CommentLikeService;
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.security.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

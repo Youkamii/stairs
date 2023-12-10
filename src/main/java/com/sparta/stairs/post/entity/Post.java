@@ -1,6 +1,6 @@
 package com.sparta.stairs.post.entity;
 
-import com.sparta.stairs.global.Time;
+import com.sparta.stairs.common.BaseEntity;
 import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
 import com.sparta.stairs.postlike.entity.PostLike;
@@ -18,7 +18,7 @@ import java.util.List;
 @Table(name = "posts")
 @Getter
 @NoArgsConstructor
-public class Post extends Time {
+public class Post extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

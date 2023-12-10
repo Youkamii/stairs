@@ -1,7 +1,7 @@
 package com.sparta.stairs.auth.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.stairs.global.dto.CustomResponseDto;
+import com.sparta.stairs.common.dto.CustomResponseDto;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

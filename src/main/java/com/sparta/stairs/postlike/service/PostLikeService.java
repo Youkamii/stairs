@@ -1,6 +1,6 @@
 package com.sparta.stairs.postlike.service;
 
-import com.sparta.stairs.global.CommonResponseDto;
+import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.post.repository.PostRepository;
 import com.sparta.stairs.postlike.entity.PostLike;
 import com.sparta.stairs.postlike.repository.PostLikeRepository;

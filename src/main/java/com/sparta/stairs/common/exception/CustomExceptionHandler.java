@@ -1,4 +1,4 @@
-package com.sparta.stairs.global.exception;
+package com.sparta.stairs.common.exception;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;

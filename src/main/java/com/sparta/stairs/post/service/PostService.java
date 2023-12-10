@@ -1,6 +1,6 @@
 package com.sparta.stairs.post.service;
 
-import com.sparta.stairs.global.CustomException;
+import com.sparta.stairs.common.exception.CustomException;
 import com.sparta.stairs.post.dto.PostRequestDto;
 import com.sparta.stairs.post.dto.PostResponseDto;
 import com.sparta.stairs.post.dto.PostUpdateRequestDto;
