@@ -6,6 +6,9 @@ import com.sparta.stairs.comment.dto.CommentUpdateRequestDto;
 import com.sparta.stairs.comment.service.CommentService;
 import com.sparta.stairs.common.dto.CommonResponseDto;
 import com.sparta.stairs.security.UserDetailsImpl;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +25,11 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
+    @Operation(summary = "댓글 추가", description = "특정 게시글에 댓글을 추가합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "댓글 추가 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     public ResponseEntity<CommentResponseDto> addComment(@PathVariable Long postId, @Valid @RequestBody CommentRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         CommentResponseDto responseDto = commentService.addComment(postId, requestDto, userDetails.getUser());
 
@@ -29,6 +37,11 @@ public class CommentController {
     }
 
     @PutMapping("/{commentId}")
+    @Operation(summary = "댓글 수정", description = "특정 게시글의 특정 댓글을 수정합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "댓글 수정 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     public ResponseEntity<CommentResponseDto> updateComment(@PathVariable Long postId, @PathVariable Long commentId, @Valid @RequestBody CommentUpdateRequestDto requestDto, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         CommentResponseDto responseDto = commentService.updateComment(postId, commentId, requestDto, userDetails.getUser());
 
@@ -36,6 +49,11 @@ public class CommentController {
     }
 
     @DeleteMapping("/{commentId}")
+    @Operation(summary = "댓글 삭제", description = "특정 게시글의 특정 댓글을 삭제합니다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "댓글 삭제 성공"),
+            @ApiResponse(responseCode = "400", description = "잘못된 요청")
+    })
     public ResponseEntity<CommonResponseDto> deleteComment(@PathVariable Long postId, @PathVariable Long commentId, @AuthenticationPrincipal UserDetailsImpl userDetails) {
         commentService.deleteComment(postId, commentId, userDetails.getUser());
 
