@@ -37,7 +37,7 @@ last_updated : 2023 12 06
 <img src="https://drive.google.com/uc?export=view&id=1N9UVsswg6gQeZvib7GZRyTV1mI4yg7wv">
 
 #### - 관리자
-<img src="https://drive.google.com/uc?export=view&id=1SzWmBa2mzgznkukerl-OVqLA_RtAlFkI">
+<img src="https://drive.google.com/uc?export=view&id=1-JWX2uLrzjPO_UicNNItFdJcIqfasMhs">
 
 #### - 포스트
 <img src="https://drive.google.com/uc?export=view&id=1PA3vaNeO5iYxZspbef9-wZBzlllKZySc">
